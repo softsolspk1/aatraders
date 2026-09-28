@@ -1,0 +1,8 @@
+{
+  "name": "softsols/aatraders",
+  "description": "AA TRADERS - Pharmaceutical Distribution Management System (PDMS)",
+  "type": "project",
+  "require": {
+    "php": ">=8.0"
+  }
+}

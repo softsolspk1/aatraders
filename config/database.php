@@ -1,7 +1,21 @@
 <?php
 // AA TRADERS - PDMS Database Connection & Configuration
 
-define('DB_PATH', __DIR__ . '/../data/aatraders.sqlite');
+if (!defined('DB_PATH')) {
+    $isVercel = getenv('VERCEL') || isset($_ENV['VERCEL']) || (!is_writable(__DIR__ . '/../data') && !is_writable(__DIR__ . '/..'));
+    if ($isVercel) {
+        $tmpDb = sys_get_temp_dir() . '/aatraders.sqlite';
+        if (!file_exists($tmpDb) || filesize($tmpDb) === 0) {
+            $bundled = __DIR__ . '/../data/aatraders.sqlite';
+            if (file_exists($bundled) && filesize($bundled) > 0) {
+                @copy($bundled, $tmpDb);
+            }
+        }
+        define('DB_PATH', $tmpDb);
+    } else {
+        define('DB_PATH', __DIR__ . '/../data/aatraders.sqlite');
+    }
+}
 define('CLINIC_DB_PATH', 'C:/Users/softs/Downloads/clinic.sqlite'); // Support reading from existing clinic.sqlite if needed
 
 class Database {
@@ -11,7 +25,7 @@ class Database {
         if (self::$pdo === null) {
             $dbDir = dirname(DB_PATH);
             if (!is_dir($dbDir)) {
-                mkdir($dbDir, 0777, true);
+                @mkdir($dbDir, 0777, true);
             }
 
             $needsInit = !file_exists(DB_PATH) || filesize(DB_PATH) === 0;
@@ -20,7 +34,13 @@ class Database {
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             self::$pdo->exec('PRAGMA foreign_keys = ON;');
-            self::$pdo->exec('PRAGMA journal_mode = WAL;');
+            try {
+                self::$pdo->exec('PRAGMA journal_mode = WAL;');
+            } catch (\Exception $e) {
+                try {
+                    self::$pdo->exec('PRAGMA journal_mode = MEMORY;');
+                } catch (\Exception $e2) {}
+            }
 
             if ($needsInit) {
                 self::initializeDatabase();

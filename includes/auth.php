@@ -2,7 +2,13 @@
 // AA TRADERS - Authentication & Role-Based Access Control
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    if (getenv('VERCEL') || isset($_ENV['VERCEL'])) {
+        $tmpDir = sys_get_temp_dir();
+        if (is_dir($tmpDir) && is_writable($tmpDir)) {
+            @session_save_path($tmpDir);
+        }
+    }
+    @session_start();
 }
 
 require_once __DIR__ . '/../config/database.php';
