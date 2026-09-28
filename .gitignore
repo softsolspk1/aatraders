@@ -1,0 +1,11 @@
+# Temporary and lock files
+*.sqlite-wal
+*.sqlite-shm
+backups/*.sqlite
+!backups/.gitkeep
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
