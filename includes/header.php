@@ -50,17 +50,10 @@ $companyName = $company['name'] ?? 'AA TRADERS';
                     </a>
                 <?php endif; ?>
 
-                <!-- Fast Demo Role Switcher -->
+                <!-- User Role Badge -->
                 <div class="role-pill">
-                    <span>Role:</span>
-                    <select id="demoRoleSwitcher" class="demo-role-select" title="Switch Demo Role instantly">
-                        <option value="admin" <?= $currentUser['username'] === 'admin' ? 'selected' : '' ?>>🛡️ Super Admin</option>
-                        <option value="sales_mgr" <?= $currentUser['username'] === 'sales_mgr' ? 'selected' : '' ?>>📈 Sales Manager</option>
-                        <option value="warehouse_mgr" <?= $currentUser['username'] === 'warehouse_mgr' ? 'selected' : '' ?>>🏭 Warehouse Mgr</option>
-                        <option value="accounts_mgr" <?= $currentUser['username'] === 'accounts_mgr' ? 'selected' : '' ?>>💰 Accounts Mgr</option>
-                        <option value="kamran_rep" <?= $currentUser['username'] === 'kamran_rep' ? 'selected' : '' ?>>💼 Kamran (Rep)</option>
-                        <option value="auditor" <?= $currentUser['username'] === 'auditor' ? 'selected' : '' ?>>🔍 Auditor</option>
-                    </select>
+                    <span style="font-size: 11px; color: var(--slate-500);">Role:</span>
+                    <span style="font-weight: 700; color: #0284c7; font-size: 12px;"><?= htmlspecialchars(ucwords(str_replace('_', ' ', $currentUser['role'] ?? 'User'))) ?></span>
                 </div>
 
                 <!-- User profile badge -->

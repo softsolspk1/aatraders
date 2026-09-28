@@ -87,6 +87,7 @@ usort($backups, fn($a, $b) => strcmp($b['date'], $a['date']));
             <button type="submit" class="btn btn-secondary">💾 Create Local Snapshot</button>
         </form>
         <a href="backup.php?download_current=1" class="btn btn-primary">⬇️ Download Active SQLite DB</a>
+        <a href="settings.php" class="btn btn-danger" style="background:#dc2626;">🧹 Purge Demo Data</a>
     </div>
 </div>
 

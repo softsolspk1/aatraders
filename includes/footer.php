@@ -6,7 +6,7 @@
                 <strong>AA TRADERS</strong> &mdash; Pharmaceutical Distribution Management System (PDMS) &bull; v2.6 Enterprise
             </div>
             <div>
-                Engineered with PHP &bull; SQLite WAL Mode &bull; High Reliability
+                Developed by <a href="https://softsols.pk" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none; font-weight: 600;">Softsols Pakistan</a>
             </div>
         </footer>
     </div>
